@@ -29,8 +29,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# Add myapi App to config - MPB - 20171020 16:07
 
 INSTALLED_APPS = [
+    'myapi.apps.MyapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
