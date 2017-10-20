@@ -29,10 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-# Add myapi App to config - MPB - 20171020 16:07
 
 INSTALLED_APPS = [
-    'myapi.apps.MyapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,12 +72,15 @@ WSGI_APPLICATION = 'ConsumerApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# Configure Postgres Database adapter
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': 'postgres',
+        'NAME': 'postgres',
+        'PASSWORD': 'Fr334ever'
+    },
 }
 
 
