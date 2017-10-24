@@ -10,6 +10,9 @@ class Address(models.Model):
     address_house_number = models.SmallIntegerField()
     address_city = models.CharField(max_length=24)
 
+    class Meta:
+        ordering = ('address_city',)
+        
     # Return Address for Django Admin
     def __str__(self):
         return "%s %s, %s, %s" % (self.address_street,
@@ -23,6 +26,9 @@ class Consumer(models.Model):
     email_address = models.CharField(max_length=254)
     password = models.CharField(max_length=256)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('last_name',)
 
     # Return PersonName for Django Admin
     def __str__(self):
