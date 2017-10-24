@@ -1,10 +1,16 @@
 from myapi.models import Consumer, Address
 from myapi.serializers import ConsumerSerializer, AddressSerializer
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
+
+class MyResultsSetPagination(PageNumberPagination):
+    page_size_query_param = 'ps'
+    max_page_size = 100
 
 # Create your views here.
 class ConsumerList(generics.ListCreateAPIView):
     serializer_class = ConsumerSerializer
+    pagination_class = MyResultsSetPagination
 
     def get_queryset(self):
         """
