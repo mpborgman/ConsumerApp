@@ -1,31 +1,22 @@
-from django.shortcuts import render
-
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from myapi.models import Consumer, Address
 from myapi.serializers import ConsumerSerializer, AddressSerializer
+from rest_framework import generics
 
 # Create your views here.
-def consumer_list(request):
-    """
-    List all Consumers
-    """
-    if request.method == 'GET':
-        consumers = Consumer.objects.all()
-        serializer = ConsumerSerializer(consumers, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class ConsumerList(generics.ListCreateAPIView):
+    serializer_class = ConsumerSerializer
 
-def consumer_detail(request, pk):
-    """
-    Retrieve a consumer.
-    """
-    try:
-        consumer = Consumer.objects.get(pk=pk)
-    except Consumer.DoesNotExist:
-        return HttpResponse(status=404)
+    def get_queryset(self):
+        """
+        Optionally restricts the returned consumers to a given country,
+        by filtering against a `country` query parameter in the URL.
+        """
+        queryset = Consumer.objects.all()
+        country = self.request.query_params.get('country', None)
+        if country is not None:
+            queryset = queryset.filter(address__address_country=country)
+        return queryset
 
-    if request.method == 'GET':
-        serializer = ConsumerSerializer(consumer)
-        return JsonResponse(serializer.data)
+class ConsumerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Consumer.objects.all()
+    serializer_class = ConsumerSerializer
