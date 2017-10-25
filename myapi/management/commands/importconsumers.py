@@ -12,24 +12,29 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for filename in options['file_name']:
             # Import CSV file with use of Command argument 'filename'
-            with open(filename) as csvfile:
-                lines = csv.DictReader(csvfile)
-                for line in lines:
-                    person = Consumer()
-                    #  Match CSV lines to MyApi Model of Consumer and Address
-                    person.first_name = line['firstName']
-                    person.last_name = line['lastName']
-                    person.email_address = line['emailAddress']
-                        
-                    # Hash password before storing. Can be checked with check_password(password, encoded)
-                    person.password = django.contrib.auth.hashers.make_password(line['password'])
+            try:
+                with open(filename) as csvfile:
+                    lines = csv.DictReader(csvfile)
+                    for line in lines:
+                        person = Consumer()
+                        #  Match CSV lines to MyApi Model of Consumer and Address
+                        person.first_name = line['firstName']
+                        person.last_name = line['lastName']
+                        person.email_address = line['emailAddress']
+                            
+                        # Hash password before storing. Can be checked with check_password(password, encoded)
+                        person.password = django.contrib.auth.hashers.make_password(line['password'])
 
-                    personaddress = Address()
-                    personaddress.address_street = line['addressStreet']
-                    personaddress.address_country = line['addressCountry']
-                    personaddress.address_house_number = line['addressHouseNumber']
-                    personaddress.address_city = line['addressCity']
-                    personaddress.save()
+                        personaddress = Address()
+                        personaddress.address_street = line['addressStreet']
+                        personaddress.address_country = line['addressCountry']
+                        personaddress.address_house_number = line['addressHouseNumber']
+                        personaddress.address_city = line['addressCity']
+                        personaddress.save()
 
-                    person.address = personaddress
-                    person.save()
+                        person.address = personaddress
+                        person.save()
+
+                        print("Importing data was succesfully executed with %s rows!" % len(lines))
+            except:
+                print("Encountered an issue with importing data.")

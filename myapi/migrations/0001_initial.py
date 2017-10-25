@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
                 ('email_address', models.CharField(max_length=254)),
-                ('password', models.CharField(max_length=30)),
+                ('password', models.CharField(max_length=256)),
                 ('address', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myapi.Address')),
             ],
         ),
