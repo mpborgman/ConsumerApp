@@ -1,5 +1,6 @@
 Steps to setup environment:
 
+Basic Python environment:
  1. Install Virtual Environment (cmd prompt):
     pip install virtualenv
  2. Go to 'source\path\of\project' (cmd prompt):
@@ -14,29 +15,32 @@ Steps to setup environment:
     pip install djangorestframework
     pip install markdown
     pip install django-filter
+ 7. Install PostGreSQL
 
 <!-- Not needed when forking from GIT!
- 7. Start Django project (cmd prompt):
+ 8. Start Django project (cmd prompt):
     django-admin startproject ConsumerApp
- 8. Start Django App (cmd prompt):
+ 9. Start Django App (cmd prompt):
     python manage.py startapp myapi (cmd prompt)
     Not needed when forking from GIT! -->
 
- 9. Adjust DATABASES in settings.py to meet installed database server configuration
-10. python manage.py createsuperuser (cmd prompt)
+10. Fork from https://github.com/mpborgman/ConsumerApp.git
+
+11. Adjust DATABASES in settings.py to meet installed database server configuration
+12. python manage.py createsuperuser (cmd prompt)
     - Create user with username 'admin', 'emailaddress@example.com'and password
 
 <!-- Not needed when forking from GIT!
-11. python manage.py makemigrations myapi (cmd prompt)
+13. python manage.py makemigrations myapi (cmd prompt)
     Not needed when forking from GIT! -->
 
-12. python manage.py migrate (cmd prompt)
-13. python manage.py importconsumers 'path\to\csv\file' (cmd prompt)
-14. python manage.py runserver (cmd prompt)
-15. Go to http://localhost:8000/admin
-16. Test to view data without log in:
+14. python manage.py migrate (cmd prompt)
+15. python manage.py importconsumers 'path\to\csv\file' (cmd prompt)
+16. python manage.py runserver (cmd prompt)
+17. Go to http://localhost:8000/admin
+18. Test to view data without log in:
     - Go to http://localhost:8000/myapi
-17. Test to view data with log in:
+19. Test to view data with log in:
     - http://localhost:8000/myapi
     - http://localhost:8000/myapi/35
     - http://localhost:8000/myapi?ps=5&page=3

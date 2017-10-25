@@ -2,6 +2,7 @@ from myapi.models import Consumer, Address
 from myapi.serializers import ConsumerSerializer, AddressSerializer
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 
 class MyResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'ps'
@@ -13,6 +14,8 @@ class ConsumerList(generics.ListCreateAPIView):
     serializer_class = ConsumerSerializer
     # Make use of DRF pagination through class override
     pagination_class = MyResultsSetPagination
+    # Make use of default DRF authentication
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         """
@@ -30,3 +33,5 @@ class ConsumerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Consumer.objects.all()
     # Use Model Serializer
     serializer_class = ConsumerSerializer
+    # Make use of default DRF authentication
+    permission_classes = (IsAuthenticated,)
